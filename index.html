@@ -1,0 +1,1584 @@
+<html>
+<head>
+	<script src="print.js"></script>
+	<link rel="stylesheet" href="print.css">
+	<script src="all.js"></script>
+	<link rel="shortcut icon" href="pic.png">
+	<meta name="viewport" content="user-scalable=0,initial-scale=0.8,width=device-width">
+	<link rel="stylesheet" href="all.css">
+	<link rel="stylesheet" href="styles.css">
+	<title>ZuderCMS</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Ubuntu&display=swap');
+		 .box {
+	    	display:inline-flex;
+	    	margin:12px;
+	    	width:25px;
+	    	height:25px;
+	    	border-radius:50%;
+	    }
+		#box1 {
+            background-color:gold;
+            animation:rise 0.5s infinite ease-in-out;
+            position:relative;
+            animation-direction:alternate;
+	    }
+	    #box2 {
+            background-color:red;
+            animation:rise 0.5s infinite ease-in-out;
+            position:relative;
+            animation-direction:alternate;
+            animation-delay:0.12s;
+	    }
+	    #box3 {
+            background-color:green;
+            animation:rise 0.5s infinite ease-in-out;
+            animation-delay:0.24s;
+            animation-direction:alternate;
+            position:relative;
+	    }
+		body {
+			font-family:comic sans ms;
+			background-color:#f2f2f2;
+			margin:0px;
+		}
+		button {
+			outline:none;
+		}
+		
+		input {
+			outline:none;
+		}
+		img {
+			outline:none;
+		}
+		div {
+			outline:none;
+		}
+		.input {
+			padding:5px;
+			border:1.2px solid lightgray;
+			font-family:arial;
+			outline:none;
+			border-radius:3px;
+			transition:0.2s;
+		}
+		.input:focus {
+			box-shadow: inset 0px 0px 3px 0.5px lightgray;
+			border:1.2px solid grey;
+		}
+		#error {
+            background-color:rgba(250,255,250,0.95);
+            width:40vw;
+            display:none;
+            opacity:0;
+            top:-200px;
+            left:44vw;
+            position:fixed;
+            z-index:300000;
+            border-radius:5px;
+            box-shadow:0px 0px 4px 1px lightgray;
+            box-sizing:border-box;
+            padding:20px;
+            font-style:italic;
+            font-size:16px; 
+         }
+		.close {
+			transition:0.5s;
+			background-color:white;
+			border:2px solid cornflowerblue;
+			padding:5px;
+			border-radius:5px;
+			border-radius:5px;
+			padding-left:8px;
+			padding-right:8px;
+			cursor:hand;
+			color:cornflowerblue;
+			font-weight:bold;
+		}
+		.close:hover {
+			background-color:cornflowerblue;
+			color:white;
+		}
+		.apply {
+			background-color:green;
+			padding:8px;
+			cursor:hand;
+			border-radius:5px;
+			color:white;
+			border:0px;
+			font-family:comic sans ms;
+			font-weight:bold;
+		}
+		.trig {
+			color:white;
+			cursor:hand;			
+			transition:0.5s;
+		}
+		.trig:hover {
+			box-shadow:0px 0px 4px 2px gray;
+		}
+		.duplicate {
+			padding:5px;
+			background-color:cornflowerblue;
+			color:white;
+			font-weight:bold;
+			font-family:comic sans ms;
+			border-radius:5px;
+			border:0px;
+			cursor:hand;
+		}
+		.remove {
+			padding:5px;
+			background-color:tomato;
+			color:white;
+			font-family:comic sans ms;
+			border:0px;
+			border-radius:5px;
+			font-weight:bold;
+			cursor:hand;
+		}
+		.save {
+			padding:5px;
+			background-color:green;
+			color:white;
+			border-radius:5px;
+			font-weight:bold;
+			font-family:comic sans ms;
+			border:0px;
+			cursor:hand;
+		}
+		#body {
+			text-align:left;
+			cursor:hand;
+			justify-content:left;
+			position:absolute;
+			margin:0px;
+			font-family:trebuchet MS;
+			top:2vh;
+			width:68vw;
+			border-radius:5px;
+			height:85vh;
+			overflow-y:auto;
+			overflow-x:hidden;
+			box-sizing:border-box;
+			background-color:white;
+			left:30vw;
+			padding:10px;
+			box-shadow:0px 0px 4px 1px lightgray;
+			z-index:1;
+		}
+		label {
+			outline:none;
+		}
+		.status {
+			position:fixed;
+			bottom:1vh;
+			right:8vw;
+			font-size:10px;
+			box-shadow:0px 0px 4px 1px lightgray;
+			height:11vh;
+			width:62vw;
+			background-color:white;
+		}
+		.toolbox-mobile {
+			display:none;
+			position:absolute;
+			top:10px;
+			width:90vw;
+			left:5vw;
+			height:150px;
+			box-sizing:border-box;
+			background-color:rgb(220,220,220);
+			border-radius:4px;
+			box-shadow:0px 0px 4px 1px lightgray;
+			font-weight:bold;
+			z-index:2;
+			overflow:auto;
+		}
+		.toolbox-desktop {
+			position:absolute;
+			box-shadow:0px 0px 3px 1px lightgray;
+			width:28vw;
+			height:100vh;
+			font-weight:bold;
+			box-sizing:border-box;
+			background-color:white;
+			overflow:auto;
+			z-index:2;
+		}
+		.widget {
+			cursor:hand;
+		}
+		.desktop-widgets {
+			width:13vw;
+			height:4vw;
+			border-radius:7px;
+			box-shadow:0px 0px 2px 1px lightgray;
+			border:2px solid cornflowerblue;
+			outline:none;
+			background-color:white;
+			font-family:comic sans ms;
+			transition:0.5s;
+			cursor:hand;
+			font-weight:bold;
+			color:cornflowerblue;
+			font-size:18px;
+			transition:0.5s;
+		}
+		#desktop-scripts {
+			width:13vw;
+			height:4vw;
+			box-shadow:0px 0px 2px 1px lightgray;
+			border-radius:7px;
+			border:2px solid tomato;
+			outline:none;
+			background-color:white;
+			font-family:comic sans ms;
+			transition:0.5s;
+			cursor:hand;
+			font-weight:bold;
+			color:tomato;
+			font-size:19px;
+			transition:0.5s;	
+		}
+		#desktop-scripts:hover {
+			color:white;
+			background-color:tomato;
+		}
+		.desktop-widgets:hover {
+			color:white;
+			background-color:cornflowerblue;
+		}
+		#mobile-scripts {
+			transition:0.5s;
+			width:65px;
+			font-family:comic sans ms;
+			font-size:15px;
+			height:65px;
+			border-radius:50%;
+			box-shadow:0px 0px 2px 1px lightgray;
+			border-radius:50%;
+			border:2px solid tomato;
+			outline:none;
+			background-color:white;
+			transition:0.5s;
+			color:tomato;
+			font-weight:bold;
+			cursor:hand;
+		}
+		#mobile-scripts:hover {
+			color:white;
+			background-color:tomato;
+		}
+		.mobile-widgets {
+			transition:0.5s;
+			width:65px;
+			font-family:comic sans ms;
+			font-size:15px;
+			height:65px;
+			border-radius:50%;
+			box-shadow:0px 0px 2px 1px lightgray;
+			border-radius:50%;
+			border:2px solid cornflowerblue;
+			outline:none;
+			background-color:white;
+			transition:0.5s;
+			color:cornflowerblue;
+			font-weight:bold;
+			cursor:hand;
+		}
+		.mobile-widgets:hover {
+			color:white;
+			background-color:cornflowerblue;
+		}
+		.trigger-mobile {
+			top:20px;
+			display:none;
+			position:fixed;
+			left:1vw;
+			width:60px;
+			height:60px;
+			border-radius:50%;
+			z-index:2;
+			background-color:tomato;
+			outline:none;
+			border:0px;
+		}
+		.trigger-desktop {
+			bottom:1vh;
+			position:fixed;
+			right:2vw;
+			width:10vh;
+			height:10vh;
+			border-radius:50%;
+			z-index:2;
+			background-color:tomato;
+			outline:none;
+			border:0px;
+		}
+		.desktop-widgets:hover {
+			box-shadow:0px 0px 4px 2px lightgray;
+		}
+		#loader {
+	        background-image:radial-gradient(#f2f2f2,white);
+	        transition:0.5s;
+	        position:fixed;
+	        top:0px;
+	        z-index:4;
+	        left:0px;
+	    }
+		.mobile-widgets:hover {
+			box-shadow:0px 0px 4px 2px lightgray;
+		}
+		#edit {
+			padding:10px;
+			font-family:comic sans ms;
+			height:80vh;
+			position:absolute;
+			right:2vw;
+			top:2vh;
+			background-color:white;
+			box-shadow:0px 0px 3px 1px lightgray;
+			z-index:60000;
+			display:none;
+			text-align:left;
+			margin-bottom:20px;overflow:auto;
+			padding-bottom:20px;
+		}
+		@media(max-width:900px) {
+			#body {
+				width:80vw;
+				left:10vw;
+			}
+			#error {
+                width:90vw;
+                left:5vw;
+            }
+			.toolbox-desktop {
+				display:none;
+			}
+			.trigger-mobile {
+				display:block;
+			}
+			.status {
+				right:10vw;
+				width:80vw;
+			}
+		}
+		 @keyframes rise {
+	    	from {
+                top:0px;
+                opacity:1;
+	    	}
+	    	to {
+                top:-80px;
+                filter:blur(1px);
+                transform:scale(1.9,1.9);
+                opacity:0.8;
+	    	}
+	    }
+    </style>
+    <style>
+		.icons {
+			width:50px;
+			height:50px;
+			background-color:black;
+			border-radius:50%;
+			outline:none;
+			padding:10px;
+			color:white;
+			cursor:hand;
+			border:0px;
+			margin:5px;
+			transition:0.5s;
+		}
+		.icons:hover {
+			background-color:gray;
+		}
+		.content {
+			width:40%;
+			position:relative;
+			top:5vh;
+			font-family:comic sans ms;
+			background-color:white;
+			box-sizing:border-box;
+			padding:20px;
+			padding-bottom:30px;
+			border-radius:10px;
+		}
+		.fill-page {
+			overflow:auto;
+			position:absolute;
+			top:0px;
+			display:none;
+			left:0px;
+			width:100vw;
+			height:100vh;
+			background-color:rgba(0,0,0,0.9);
+			z-index:100000;
+		}
+		@media (max-width:900px) {
+			.content {
+				width:90%;
+			}	
+		}
+	</style>
+    <style>
+		#b3,#b4 {
+			width:10px;
+			height:10px;
+			display:none;
+			background-color:black;
+			position:absolute;
+			cursor:crosshair;
+			z-index:50000;
+			border:1px solid cornflowerblue;
+		}
+		#b3:hover {
+			background-color:cornflowerblue	
+		}
+		#b4:hover {
+			background-color:cornflowerblue	
+		}
+		#b2 {
+			display:none;
+			position:absolute;
+			cursor:hand;
+			background-color:transparent;
+			z-index:50000;
+		}
+		#b2:hover {
+			color:cornflowerblue;
+		}
+	</style>
+    <script>
+    	var i = 0;
+    	var elem = 0;
+		var id = '';
+		var glob = '';
+    	var arr = new Array();
+    	function err(message) {
+			    document.querySelectorAll("#error")[0].style.display = 'block';
+			    document.querySelectorAll("#error")[0].innerHTML = '<center>'+message+'</center>';
+			    document.querySelectorAll("#error")[0].style.transition = '0.6s';
+			    setTimeout(function(){
+			        document.querySelectorAll("#error")[0].style.opacity = '1';
+			        document.querySelectorAll("#error")[0].style.top = '10vh';
+			    },100);
+			    setTimeout(function(){
+			        fin();
+			    },8000);
+        }
+        function fin() {
+			    document.querySelectorAll("#error")[0].style.transition = '0.6s';
+			    document.querySelectorAll("#error")[0].style.opacity = '0';
+			    document.querySelectorAll("#error")[0].style.top = '-200px';
+			    setTimeout(function(){
+			        document.querySelectorAll("#error")[0].style.display = 'none';
+			    },500);
+        }
+    	function _(elem) {
+    		return document.getElementById(elem);
+    	}
+    	function r() {
+    		if (document.body.getBoundingClientRect().width <= 900) {
+    			i = 0;
+				_("mob").style.display = 'none';
+				_("trigger").style.display="block";
+    		}
+    		else {
+    			_("trigger").style.display="none";	
+    		}
+    	}
+    	function sh() {
+    		if (i == 0) {
+    			_("mob").style.display = 'block';
+    			_("trigger").style.display = 'none';
+    			i = 1;
+    		}
+    		else {
+    			_("mob").style.display = 'none';
+    			i = 0;
+    		}
+    	}
+    	function h() {
+    		_("mob").style.display="none";
+    		_("trigger").style.display = 'block';
+    		i = 0;
+    	}
+    	var gen = 0;
+    </script>
+	<title></title>
+</head>
+<body onload="document.body.focus()" onresize="r()">
+	<center>
+		<div class="toolbox-desktop">
+			<center>
+				<br/>
+				<h3><i class="fas fa-pencil-alt"></i> Widgets</h3>
+				<button class="desktop-widgets" value="Button">+ Button</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Text">+ Text</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Image">+ Image</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Label">+ Label</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Radio">+ Radio</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Check">+ Check</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="Panel">+ Panel</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="progress">+ Progress</button>
+				<br/>
+				<br/>
+				<button class="desktop-widgets" value="TextArea">+ TextArea</button>
+				<br/>
+				<br/>
+				<button class="add-scripts" id="desktop-scripts" onclick="scrpt()">+ Script <i class="fas fa-code"></i></button>
+				<br/>
+				<br/>
+			</center>
+		</div>
+		<div class="toolbox-mobile" id="mob">
+			<table cellspacing="5" cellpadding="5" style="height:80%">
+				<tr>
+					<td colspan="8">
+						<p align="right">
+							<button onclick="h()" class="close">&times;</button>
+					    </p>
+					</td>
+				</tr>
+				<tr>
+					<td><button class="mobile-widgets" value="Button">Button</button></td>
+					<td><button class="mobile-widgets" value="Text">Text</button></td>
+					<td><button class="mobile-widgets" value="Image">Image</button></td>
+					<td><button class="mobile-widgets" value="Label">Label</button></td>
+					<td><button class="mobile-widgets" value="Radio">Radio</button></td>
+					<td><button class="mobile-widgets" value="Panel">Panel</button></td>
+					<td><button class="mobile-widgets" value="Check">Check</button></td>
+					<td><button class="mobile-widgets" value="Progress">Progress</button></td>
+					<td><button class="mobile-widgets" value="Textarea">Textarea</button></td>
+					<td><button class="add-scripts" id="mobile-scripts" onclick="scrpt()">Script</button></td>
+				</tr>
+			</table>
+		</div>
+		<button class="trigger-mobile trig" onclick="sh()" id="trigger"><i class="fas fa-toolbox fa-2x"></i></button>
+		<button class="trigger-desktop trig" onclick="sho(glob)"><i class="fas fa-toolbox fa-2x"></i></button>
+		<div id="edit">
+			<p align="right"><button onclick="_('edit').style.display = 'none'" class="close">&times;</button></p>
+			<center><button onclick="pri()" class="save"><i class="fas fa-download"></i> Save Project</button></center>
+			<br/>
+			<center><button onclick="generate()" class="save"><i class="fas fa-file"></i> Generate HTML</button></center>
+			<br/>
+			<label>Width</label>
+			<br/>
+			<input type="text" class="input" id="width" value="140">
+			<br/>
+			<label>Height</label>
+			<br/>
+			<input type="text" class="input" id="height" value="40">
+			<br/>
+			<label>Border Color</label>
+			<br/>
+			<input type="text" class="input" id="bordercolor">
+			<br/>
+			<label>Border Size</label>
+			<br/>
+			<input type="text" class="input" id="bordersize" value="1">
+			<br/>
+			<label>Border Radius</label>
+			<br/>
+			<input type="text" class="input" id="borderradius" value="0">
+			<br/>
+			<label>BackColor</label>
+			<br/>
+			<input type="text" class="input" id="backgroundcolor">
+			<br/>
+			<label>Font Color</label>
+			<br/>
+			<input type="text" class="input" id="color">
+			<br/>
+			<label>Font Face</label>
+			<br/>
+			<input type="text" class="input" id="fontfamily">
+			<br/>
+			<label>Border Style</label>
+			<br/>
+			<input type="text" class="input" id="borderstyle">
+			<br/>
+			<label>Font Size</label>
+			<br/>
+			<input type="text" class="input" id="fontsize" value="16">
+			<br/>
+			<label>Shadow</label>
+			<br/>
+			<input type="text" class="input" id="boxshadow" value="16">
+			<br/>
+			<label>Source</label>
+			<br/>
+			<input type="file" class="input" style="width:180px" id="src" value="">
+			<br/>
+			<label>Value</label>
+			<br/>
+			<input type="text" class="input" id="value" value="">
+			<br/>
+			<label>InnerText</label>
+			<br/>
+			<input type="text" class="input" id="text" value="">
+			<br/>
+			<label>InnerHTML</label>
+			<br/>
+			<input type="text" class="input" id="html" value="">
+			<br/>
+			<label>Font Weight</label>
+			<br/>
+			<input type="text" class="input" id="bold">
+			<br/>
+			<label>Z-index</label>
+			<br/>
+			<input type="text" class="input" id="zindex">
+			<br/>
+			<label>Padding</label>
+			<br/>
+			<input type="text" class="input" id="padding">
+			<br/>
+			<label>Opacity</label>
+			<br/>
+			<input type="text" class="input" id="opacity">
+			<br/>
+			<label>Text Align</label>
+			<br/>
+			<input type="text" class="input" id="textalign">
+			<br/>
+			<br/>
+			<center><button onclick="addProps(id)" style="padding:5px" class="apply"><i class="fas fa-plus"></i> Apply</button></center>
+			<br/>
+			<center><button onclick="dup(glob)" class="duplicate"><i class="fas fa-copy"></i> Duplicate</button></center>
+			<br/>
+			<center><button onclick="remelem(glob)" style="padding:5px" class="remove"><i class="fas fa-trash"></i> Remove Element</button></center>
+			<br/>
+			<center><button onclick="_('overlap').style.display = 'block';_('stats').innerHTML = '';" class="duplicate"><i class="fas fa-plus"></i> Embed Icon</button></center>
+			<br/>
+		</div>
+		<div id="body" onmousemove="chm(event);if (a != false){mover(event);_('b2').style.display = 'none';_('b3').style.display = 'none';_('b4').style.display = 'none';}">			
+		</div>
+		<script>
+			setTimeout(function(){
+	        	 document.getElementById("loader").style.opacity = '0';
+	        	 setTimeout(function() {
+	                 document.getElementById("loader").parentNode.removeChild(document.getElementById("loader"));
+	                 err('This package makes use of Font Awesome for icons. To make use of generated scripts and pages, please download Font Awesome V4 and above.');
+	        	 },500);
+            },5000);
+			window.onkeydown = function(){
+				if (event.keyCode == 32 && a == true) {
+					event.preventDefault();
+					a = false;
+					a2 = false;
+					rbars(glob);
+					a3 = false;
+					a4 = false;
+				}
+			}
+		</script>
+		<script>
+			var a2 = false;
+			var a3 = false;
+			var a4 = false;
+			var w1 = document.querySelectorAll(".mobile-widgets");
+			var w2 = document.querySelectorAll(".desktop-widgets");
+			var w = document.querySelectorAll(".widget");
+			for (var i = 0;i < w1.length;i++) {
+				document.querySelectorAll('.mobile-widgets')[i].addEventListener('click',function(){
+					addWidget(this.value);
+				});
+			}
+			for (var j = 0;j < w2.length;j++) {
+				document.querySelectorAll('.desktop-widgets')[j].addEventListener('click',function(){
+					addWidget(this.value);
+				});
+			}
+			var a = false;
+			var res = 0;
+			function addWidget(x) {
+				sele = id;
+				x = x.toLowerCase();
+				var s = x;
+				gen++;
+				id = 'w'+gen;
+				glob = id;
+
+				if (s == 'button'){
+					_("body").innerHTML += '<button style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" >Enter Text Here</button>';
+				}
+				if (s == 'text') {
+					_("body").innerHTML += '<input type="text" style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();"  value="Enter Text Here">';
+				}
+				if (s == 'image'){
+					_("body").innerHTML += '<img style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" >';
+				}
+				if (s == 'label') {
+					_("body").innerHTML += '<label style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" contenteditable="true" >Enter Text Here</label>';
+				}
+				if (s == 'radio'){
+					_("body").innerHTML += '<input type="'+s+'" style="border-size:1px;position:absolute;top:45%;left:40%;width:40px;height:40px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" checked >';
+				}
+				if (s == 'panel') {
+					_("body").innerHTML += '<div style="border-size:1px;position:absolute;top:45%;left:10%;width:80%;height:60px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" contenteditable="true" >Enter Content Here</div>';
+				}
+				if (s == 'progress'){
+					_("body").innerHTML += '<progress style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" value="100" ></progress>';
+				}
+				if (s == 'check') {
+					_("body").innerHTML += '<input type="checkbox" style="border-size:1px;position:absolute;top:45%;left:40%;width:50px;height:50px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" checked >';
+				}
+				if (s == 'textarea') {
+					_("body").innerHTML += '<textarea style="border-size:1px;position:absolute;top:45%;left:40%;width:100px;height:80px;border-color:lightgray;border-radius:0px;background-color:#f2f2f2;font-family:trebuchet MS;font-size:16px;box-shadow:none;border-style:dashed;z-index:2;padding:0px;color:gray;font-weight:normal;text-align:left;filter:opacity(100%)" class="widget" id="w'+ gen +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" >Enter Text Here</textarea>';
+				}
+				var tt = 'w'+gen;
+				_("elemback").style.backgroundColor = _(tt).style.backgroundColor;
+				_("elemwidth").innerHTML = _(tt).style.width;
+				_("elemcolor").innerHTML = _(tt).style.backgroundColor;
+				_("elemheight").innerHTML = _(tt).style.height;
+				_("elemid").innerHTML = _(tt).id;
+			}
+			function ed(x) {
+				glob = x;
+				sele = x;
+				a3 = false;
+				id=x;
+				a4 = false;
+				if (a == false) {
+					elem = x.match(/[0-9]+$/)[0];
+					elem = elem - 1;
+					id = x;
+					_("width").value = _(id).getBoundingClientRect().width;
+					_("height").value = _(id).getBoundingClientRect().height;
+					_("bordercolor").value = _(id).style.borderColor;
+					_("borderradius").value = _(id).style.borderRadius;
+					_("backgroundcolor").value = _(id).style.backgroundColor;
+					_("color").value = _(id).style.color;
+					_("textalign").value = _(id).style.textAlign;
+					_("fontfamily").value = _(id).style.fontFamily;
+					_("fontsize").value = _(id).style.fontSize;
+					_("boxshadow").value = _(id).style.boxShadow;
+					_("text").value = _(id).innerText;
+					_("opacity").value = _(id).style.filter.replace('opacity(','').replace(")",'');
+					_("html").value = _(id).innerHTML;
+					_("bold").value = _(id).style.fontWeight;
+					_("borderstyle").value = _(id).style.borderStyle;
+					_("zindex").value = _(id).style.zIndex;
+					_("padding").value = _(id).style.padding;
+				}
+			}
+			function sho() {
+				if (glob !== '') {
+					glob = id;
+					_("edit").style.display = 'block';
+					_("textalign").value = _(id).style.textAlign;
+					_("width").value = _("elemwidth").innerHTML;
+					_("height").value = _("elemheight").innerHTML;
+					_("bordercolor").value = _(id).style.borderColor;
+					_("opacity").value = _(id).style.filter.replace('opacity(','').replace(")",'');
+					_("borderradius").value = _(id).style.borderRadius;
+					_("backgroundcolor").value = _(id).style.backgroundColor;
+					_("color").value = _(id).style.color;
+					_("fontfamily").value = _(id).style.fontFamily;
+					_("fontsize").value = _(id).style.fontSize;
+					_("boxshadow").value = _(id).style.boxShadow;
+					_("text").value = _(id).innerText;
+					_("value").value = _(id).value;
+					_("html").value = _(id).innerHTML;
+					_("bold").value = _(id).style.fontWeight;
+					_("borderstyle").value = _(id).style.borderStyle;
+					_("zindex").value = _(id).style.zIndex;
+					_("padding").value = _(id).style.padding;
+				}
+			}
+			function addProps(x) {
+				a2 = false;
+				a3 = false;
+				a4 = false;
+				_("b3").style.display = 'none';
+				_("b4").style.display = 'none';
+				_(id).style.width = _("width").value;
+				_(id).style.height = _("height").value;
+				_(id).style.borderColor = _("bordercolor").value;
+				_(id).style.borderSize= _("bordersize").value;
+				_(id).style.borderRadius = _("borderradius").value;
+				_(id).style.backgroundColor = _("backgroundcolor").value;
+				_(id).style.color = _("color").value;
+				_(id).style.filter = 'opacity('+_("opacity").value+")";
+				_(id).style.fontFamily = _("fontfamily").value;
+				_(id).style.fontSize = _("fontsize").value;
+				_(id).style.boxShadow= _("boxshadow").value;
+				_(id).value = _("value").value;
+				_(id).style.textAlign = _("textalign").value;
+				_(id).innerText = _("text").value;
+				if (_(id).tagName == 'img') {
+					_(id).src = window.URL.createObjectURL(_("src").files[0]);
+				}
+				_(id).innerHTML = _("html").value;
+				_(id).style.fontWeight = _("bold").value;
+				_(id).style.borderStyle = _("borderstyle").value;
+				_(id).style.zIndex = _("zindex").value;
+				_(id).style.padding = _("padding").value;
+				var tt = id;
+				_("elemback").style.backgroundColor = _(tt).style.backgroundColor;
+				_("elemwidth").innerHTML = _(tt).style.width;
+				_("elemcolor").innerHTML = _(tt).style.backgroundColor;
+				_("elemheight").innerHTML = _(tt).style.height;
+				_("elemid").innerHTML = _(tt).id;
+			}
+			function mover(event) {
+				if (id != '' && a == true) {
+					_("edit").style.display = 'none';
+					_(id).style.top = event.clientY - _("body").getBoundingClientRect().top - (_(id).getBoundingClientRect().height/2);
+				    _(id).style.left = event.clientX - _("body").getBoundingClientRect().left - (_(id).getBoundingClientRect().width/2);;
+				}
+			}
+			function remelem(x) {
+				_("b3").style.display = 'none';
+				_("b2").style.display = 'none';
+				_("b4").style.display = 'none';
+				_(x).parentNode.removeChild(_(x));
+			}
+			var sele;
+			function pri() {
+				printJS('body','html');
+			}
+			function dup(x) {
+				gen = gen + 1;
+				sele = gen;
+				if (_(x).tagName.toLowerCase() == 'input') {
+					var t = '<input type="'+ _(x).type.toLowerCase() +'" class="widget" style="width:'+_(x).style.width+';height:'+_(x).style.height+';border-color:'+_(x).style.borderColor+';border-radius:'+_(x).style.borderRadius+';background-color:'+_(x).style.backgroundColor+';color:'+_(x).style.color+';font-family:'+_(x).style.fontFamily+';font-weight:'+ _(x).style.fontWeight +';font-size:'+_(x).style.fontSize+';box-shadow:'+_(x).style.boxShadow+';border-size:'+_(x).style.borderStyle+';border-style:'+_(x).style.borderStyle+';text-align:'+ _(x).style.textAlign +';z-index:'+_(x).style.zIndex+';padding:'+_(x).style.padding+';top:45%;left:40%;position:absolute;filter:'+ _(x).style.filter +'" id="w'+gen+'" value="'+ _(x).value +'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" >';
+					t = t.replace(/:"/g,':');
+					t = t.replace(/";/g,';');
+					_("body").innerHTML+= t;
+				}
+				else if (_(x).tagName.toLowerCase() == 'img') {
+					var t = '<'+_(x).tagName.toLowerCase()+' class="widget" style="width:'+_(x).style.width+';height:'+_(x).style.height+';border-color:'+_(x).style.borderColor+';border-radius:'+_(x).style.borderRadius+';background-color:'+_(x).style.backgroundColor+';color:'+_(x).style.color+';font-family:'+_(x).style.fontFamily+';font-weight:'+ _(x).style.fontWeight +';font-size:'+_(x).style.fontSize+';box-shadow:'+_(x).style.boxShadow+';border-size:'+_(x).style.borderStyle+';border-style:'+_(x).style.borderStyle+';text-align:'+ _(x).style.textAlign +';z-index:'+_(x).style.zIndex+';padding:'+_(x).style.padding+';top:45%;left:40%;position:absolute;filter:'+ _(x).style.filter +')" id="w'+gen+'" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" src="'+_(x).src+'" >';
+					t = t.replace(/:"/g,':');
+					t = t.replace(/";/g,';');
+					_("body").innerHTML+= t;
+				}
+				else {
+					var t = '<'+ _(x).tagName.toLowerCase() +' class="widget" style="width:'+_(x).style.width+';height:'+_(x).style.height+';border-color:'+_(x).style.borderColor+';border-radius:'+_(x).style.borderRadius+';background-color:'+_(x).style.backgroundColor+';color:'+_(x).style.color+';font-family:'+_(x).style.fontFamily+';font-weight:'+ _(x).style.fontWeight +';font-size:'+_(x).style.fontSize+';box-shadow:'+_(x).style.boxShadow+';border-size:'+_(x).style.borderStyle+';border-style:'+_(x).style.borderStyle+';text-align:'+ _(x).style.textAlign +';z-index:'+_(x).style.zIndex+';padding:'+_(x).style.padding+';top:45%;left:40%;position:absolute;filter:'+ _(x).style.filter +'" id="w'+gen+'" value="Enter Value Here" onclick="rbars(this.id);ed(this.id);if (a == false){ a = true; }else{ a = false; }document.body.focus();" >'+ _(x).innerHTML+'</'+ _(x).tagName.toLowerCase()+'>';
+					t = t.replace(/:"/g,':');
+					t = t.replace(/";/g,';');
+					_("body").innerHTML+= t;
+				}
+				var tt = 'w'+gen;
+				_("elemback").style.backgroundColor = _(tt).style.backgroundColor;
+				_("elemwidth").innerHTML = _(tt).style.width;
+				_("elemcolor").innerHTML = _(tt).style.backgroundColor;
+				_("elemheight").innerHTML = _(tt).style.height;
+				_("elemid").innerHTML = _(tt).id;
+			}
+			function rbars(x) {
+				sele = x;
+				var x1 = _(x).getBoundingClientRect().left;
+				var x2 = _(x).getBoundingClientRect().right;
+				var y1 = _(x).getBoundingClientRect().top;
+				var y2 = _(x).getBoundingClientRect().bottom;
+				_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+				_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+				_("b3").style.top = y2 - 5;
+				_("b3").style.left = x2 - 5;
+				_("b4").style.top = y1 - 5;
+				_("b4").style.left = x2 - 5;
+				_("b3").style.display = 'block';
+				_("b2").style.display = 'block';
+				_("b4").style.display = 'block';
+				var tt = x;
+				_("elemback").style.backgroundColor = _(tt).style.backgroundColor;
+				_("elemwidth").innerHTML = _(tt).style.width;
+				_("elemcolor").innerHTML = _(tt).style.backgroundColor;
+				_("elemheight").innerHTML = _(tt).style.height;
+				_("elemid").innerHTML = _(tt).id;
+			}
+		</script>
+		<div id="b2"  onclick="Rotate()"><i class="fas fa-undo"></i></div>
+		<div id="b3" onclick="bottomRight()"></div>
+		<div id="b4" onclick="topRight()"></div>
+
+		<script>
+			function Rotate() {
+				if (a2 == false) {
+					a2 = true;
+					a3 = false;
+					a4 = false;
+					_("b3").style.display = 'none';
+					_("b4").style.display = 'none';
+					_("b2").style.color = 'cornflowerblue';
+				}
+				else {
+					_("b2").style.color = 'black';
+					a2 = false;
+					a3 = false;
+					a4 = false;	
+					x = sele;
+					var x1 = _(x).getBoundingClientRect().left;
+					var x2 = _(x).getBoundingClientRect().right;
+					var y1 = _(x).getBoundingClientRect().top;
+					var y2 = _(x).getBoundingClientRect().bottom;
+					_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+					_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+					_("b3").style.top = y2 - 5;
+					_("b3").style.left = x2 - 5;
+					_("b4").style.top = y1 - 5;
+					_("b4").style.left = x2 - 5;
+				}
+			}
+			function bottomRight() {
+				if (a3 == false) {
+					a2 = false;
+					a3 = true;
+					a4 = false;
+					_("b3").style.backgroundColor = 'cornflowerblue';
+				}
+				else {
+					_("b3").style.backgroundColor = 'black';
+					a2 = false;
+					a3 = false;
+					a4 = false;
+					x = sele;
+					var x1 = _(x).getBoundingClientRect().left;
+					var x2 = _(x).getBoundingClientRect().right;
+					var y1 = _(x).getBoundingClientRect().top;
+					var y2 = _(x).getBoundingClientRect().bottom;
+					_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+					_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+					_("b3").style.top = y2 - 5;
+					_("b3").style.left = x2 - 5;
+					_("b4").style.top = y1 - 5;
+					_("b4").style.left = x2 - 5;
+				}
+			}
+			function topRight() {
+				if (a4 == false) {
+					a2 = false;
+					a3 = false;
+					a4 = true;
+					_("b4").style.backgroundColor = 'cornflowerblue';
+				}
+				else {
+					_("b4").style.backgroundColor = 'black';
+					x = sele;
+					var x1 = _(x).getBoundingClientRect().left;
+					var x2 = _(x).getBoundingClientRect().right;
+					var y1 = _(x).getBoundingClientRect().top;
+					var y2 = _(x).getBoundingClientRect().bottom;
+					_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+					_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+					_("b3").style.top = y2 - 5;
+					_("b3").style.left = x2 - 5;
+					_("b4").style.top = y1 - 5;
+					_("b4").style.left = x2 - 5;
+					a2 = false;
+					a3 = false;
+					a4 = false;	
+				}
+			}
+			function chm(event) {
+				if (glob != '' && a2 != false && a3 != false && a4 != false) {
+					_("elemback").style.backgroundColor = _(id).style.backgroundColor;
+					_("elemwidth").innerHTML = _(id).style.width;
+					_("elemcolor").innerHTML = _(id).style.backgroundColor;
+					_("elemheight").innerHTML = _(id).style.height;
+					_("elemid").innerHTML = _(id).id;
+				}
+				if (a2 == true) {
+					var x = sele;
+					var x1a = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2);
+					var y1a = _(x).getBoundingClientRect().top + (_(x).getBoundingClientRect().height/2);
+					var x2a = _(x).getBoundingClientRect().left + _(x).getBoundingClientRect().width;
+					var y2a = _(x).getBoundingClientRect().top + (_(x).getBoundingClientRect().height/2);
+					var x1b = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2);
+					var y1b = _(x).getBoundingClientRect().top + (_(x).getBoundingClientRect().height/2);
+					var x2b = event.clientX;
+					var y2b = event.clientY;
+					_("b2").style.top = event.clientY;
+					_("b2").style.left = event.clientX;
+					_("b4").style.left = event.clientX;
+					grad1 = (y2a - y1a)/(x2a - x1a);
+					grad2 = (y2b - y1b)/(x2b - x1b);
+					ang = (grad2 - grad1)/(1+(grad1*grad2));
+					ang = ang * (180/Math.PI);
+					ang = ang;
+					_(x).style.transform = "rotateZ("+ang+"deg)";
+				}
+				if (a4 == true) {
+					var x = sele;
+					_("b4").style.left = event.clientX;
+					_(x).style.width = event.clientX - _(x).getBoundingClientRect().left + 5;
+					_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+				 	_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+				    _("b3").style.left = _(x).getBoundingClientRect().right - 5;
+				    _("elemback").style.backgroundColor = _(x).style.backgroundColor;
+					_("elemwidth").innerHTML = _(x).style.width;
+					_("elemcolor").innerHTML = _(x).style.backgroundColor;
+					_("elemheight").innerHTML = _(x).style.height;
+					_("elemid").innerHTML = _(x).id;
+				}
+				if (a3 == true) {
+					var x = sele;
+					_("b3").style.top = event.clientY;
+					_("b2").style.top = _(x).getBoundingClientRect().top - 25;
+					_("b2").style.left = _(x).getBoundingClientRect().left + (_(x).getBoundingClientRect().width/2) - 10;
+					_(x).style.height = event.clientY - _(x).getBoundingClientRect().top + 5;
+				    _("b4").style.top = _(x).getBoundingClientRect().top - 5;
+				    _("elemback").style.backgroundColor = _(x).style.backgroundColor;
+					_("elemwidth").innerHTML = _(x).style.width;
+					_("elemcolor").innerHTML = _(x).style.backgroundColor;
+					_("elemheight").innerHTML = _(x).style.height;
+					_("elemid").innerHTML = _(x).id;
+				}
+			}
+		</script>
+	</center>
+	<div class="status">
+		<table style="width:100%;height:100%;font-size:14px" cellpadding="4" cellpadding="1">
+			<tr>
+				<td style="height:30px;width:40px">
+					<div id="elemback" style="width:100%;height:100%;background-color:black;border-radius:4px"></div>
+				</td>
+				<td><label id="elemcolor" style="text-transform:uppercase">rgb(0,0,0)</label></td>
+				<td style="width:40px;text-align:right"><b>ID:</b></td>
+				<td style="width:20%">
+					<label id="elemid" style="text-transform:uppercase">...</label>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:40px">
+					<b>Width:</b>
+				</td>
+				<td>
+					<label id="elemwidth">0px</label>
+				</td>
+				<td style="width:40px">
+					<b>Height:</b>
+				</td>
+				<td style="width:30%">
+					<label id="elemheight">0px</label>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="fill-page" id="overlap">
+		<center>
+			<table class="content">
+				<tr>
+					<td style="text-align:right;height:30px" colspan="4">
+						<button class="close" onclick="_('overlap').style.display = 'none'">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<td style="height:40px" colspan="4">
+						<center><h3>Embed Icons</h3></center>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="color:gray"><i class="fas fa-info-circle"></i> Click on an icon to add it to clipboard<br/><br/></td>
+				</tr>
+				<tr>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-toolbox fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-money-bill fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-user-alt fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-upload fa-2x"></i></button></center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-flag fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-tools fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-home fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-download fa-2x"></i></button></center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-toolbox fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-money-bill fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-user-alt fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-bars fa-2x"></i></button></center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fab fa-telegram fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-star fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-phone fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fas fa-cog fa-2x"></i></button></center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fab fa-facebook fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fab fa-yahoo fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fab fa-google fa-2x"></i></button></center>
+					</td>
+					<td>
+						<center><button class="icons" onclick="ic(this.innerHTML)"><i class="fab fa-microsoft fa-2x"></i></button></center>
+					</td>
+				</tr>
+				<tr>
+					<td id="stats" colspan="4" style="color:maroon;text-align:center;padding-top:10px">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<br/>
+						<label>Icon Scale</label>
+						<br/>
+						<select id="size">
+							<option>1X</option>
+							<option>2X</option>
+							<option>3X</option>
+							<option>4X</option>
+							<option>5X</option>
+							<option>6X</option>
+							<option>7X</option>
+							<option>8X</option>
+							<option>9X</option>
+							<option>10X</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4"><center><button class="apply" onclick="appl(ico)"><i class="fas fa-plus"></i> Apply</button></center></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<script>
+
+	</script>
+	<div class="pages">
+		<center>
+			<table class="pg" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="height:40px;text-align:right;padding-right:10px" class="top-panel"><button class="close" onclick="document.querySelectorAll('.pages')[0].style.display = 'none'">&times;</button></td>
+				</tr>
+				<tr>
+					<td><textarea class="generated" spellcheck="false" contenteditable="false"></textarea></td>
+				</tr>
+				<tr>
+					<td style="height:50px" class="bottom-panel"><center> <button class="save" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy to Clipboard</button></center></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<div class="pages2">
+		<center>
+			<table class="pg2" cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="height:40px;text-align:right;padding-right:10px" class="top-panel2"><button class="close" onclick="document.querySelectorAll('.pages2')[0].style.display = 'none'">&times;</button></td>
+				</tr>
+				<tr>
+					<td style="height:350px;text-align:left;padding-left:30px;padding-right:30px" class="top-panel3">
+						<br/>
+						<label><b>Trigger Element</b></label>
+						<select id="trigs" style="height:35px;width:100%;margin-bottom:5px;font-family:trebuchet MS"></select>
+						<br/>
+						<label><b>Target Element</b></label>
+						<select id="adds" style="height:35px;width:100%;margin-bottom:5px;font-family:trebuchet MS"></select>
+						<br/>
+						<label><b>Select Custom Script</b></label>
+						<select id="script-target" style="height:35px;width:100%;margin-bottom:5px;font-family:trebuchet MS">
+							<option>XMLHttpRequest (Ajax)</option>
+							<option>Slidein-and-out</option>
+							<option>Remove from DOM</option>
+							<option>Pop-up</option>
+							<option>Spin</option>
+						</select>
+						<br/>
+						<label><b>Event</b></label>
+						<select id="eventsapply" style="height:35px;width:100%;margin-bottom:5px;font-family:trebuchet MS">
+							<option>onclick</option>
+							<option>onchange</option>
+							<option>oninput</option>
+							<option>onmouseover</option>
+							<option>onmouseout</option>
+							<option>onmousedown</option>
+							<option>onmouseup</option>
+						</select>
+						<br>
+						<label style="font-size:14px"><i class="fas fa-info-circle"></i> Some scripts work with CSS styles and rules. To be pasted at bottom of page</label>
+						<br/>
+						<br/>
+						<center><button class="remove" onclick="gener()"><i class="fas fa-cog"></i> Generate</button></center>
+						<br/>
+					</td>
+				</tr>
+				<tr>
+					<td><textarea class="generated2" spellcheck="false" contenteditable="false"></textarea></td>
+				</tr>
+				<tr>
+					<td style="height:50px" class="bottom-panel2"><center> <button class="save" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy to Clipboard</button></center></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<script>
+		function gener() {
+			if (_("script-target").selectedIndex == 0) {
+				genscript(1);
+			}
+			else if (_("script-target").selectedIndex == 1) {
+				genscript(2);	
+			}
+			else if (_("script-target").selectedIndex == 2) {
+				genscript(3);
+			}
+			else {
+				genscript(4);
+			}
+		}
+		function genscript(x) {
+			document.querySelectorAll('.generated2')[0].value = '';
+			var ev = _("eventsapply").value.replace('on','');
+			if (x  ==  1) {
+				document.querySelectorAll('.generated2')[0].value += '    <script>\r';
+				document.querySelectorAll('.generated2')[0].value += '        document.getElementById("' + _("trigs").value + '").addEventListener("'+ ev + '",sendReq); //Event Listener for '+ ev +'\r';
+				document.querySelectorAll('.generated2')[0].value += '        function sendReq() {\r';
+				document.querySelectorAll('.generated2')[0].value += '            var xhttp;\r';
+				document.querySelectorAll('.generated2')[0].value += '            if (XMLHttpRequest) {\r';
+				document.querySelectorAll('.generated2')[0].value += '                xhttp = new XMLHttpRequest();\r';
+				document.querySelectorAll('.generated2')[0].value += '            }\r';
+				document.querySelectorAll('.generated2')[0].value += '            else {\r';
+				document.querySelectorAll('.generated2')[0].value += '                xhttp = new ActiveXObject("Microsoft.XMLHTTP");\r';
+				document.querySelectorAll('.generated2')[0].value += '            }\r';
+				document.querySelectorAll('.generated2')[0].value += '        }\r';
+				document.querySelectorAll('.generated2')[0].value += '        /* Uncomment this block if you want a callback function\r';
+				document.querySelectorAll('.generated2')[0].value += '        xhttp.onreadystatechange = function() {\r';
+				document.querySelectorAll('.generated2')[0].value += '            if (this.readyState == 4 && this.status == 200) {\r';
+				document.querySelectorAll('.generated2')[0].value += '            		return this.responseText; //Do anything with the responseText;\r';
+				document.querySelectorAll('.generated2')[0].value += '            }\r';
+				document.querySelectorAll('.generated2')[0].value += '        } */\r';
+				document.querySelectorAll('.generated2')[0].value += '        var data = document.getElementById("'+_("adds").value + '").value;\r';
+				document.querySelectorAll('.generated2')[0].value += '        xhttp.open("GET","backend_destination?data="+data,true);\r';
+				document.querySelectorAll('.generated2')[0].value += '        xhttp.send();\r';
+				document.querySelectorAll('.generated2')[0].value += '    <\/script>';
+			}
+			else if (x == 2) {
+				document.querySelectorAll('.generated2')[0].value += '    <style>\r';
+				document.querySelectorAll('.generated2')[0].value += '        .slider {\r';
+				document.querySelectorAll('.generated2')[0].value += '            position:fixed;\r';
+				document.querySelectorAll('.generated2')[0].value += '            top:0px;\r';
+				document.querySelectorAll('.generated2')[0].value += '            left:-320px;\r';
+				document.querySelectorAll('.generated2')[0].value += '            width:320px;\r';
+				document.querySelectorAll('.generated2')[0].value += '            transition:0.5s;\r';
+				document.querySelectorAll('.generated2')[0].value += '            height:100vh;\r';
+				document.querySelectorAll('.generated2')[0].value += '            opacity:0\r';
+				document.querySelectorAll('.generated2')[0].value += '        }\r';
+				document.querySelectorAll('.generated2')[0].value += '    </style>\r';
+				document.querySelectorAll('.generated2')[0].value += '    <script>\r';
+				document.querySelectorAll('.generated2')[0].value += '    	  var glob = 0;\r';
+				document.querySelectorAll('.generated2')[0].value += '    	  function _(elem) {\r';
+				document.querySelectorAll('.generated2')[0].value += '    	      return document.getElementById(elem);\r';
+				document.querySelectorAll('.generated2')[0].value += '    	  }\r';
+				document.querySelectorAll('.generated2')[0].value += '    	  document.body.onload = function() {\r';
+				document.querySelectorAll('.generated2')[0].value += '    	      _("'+ _("adds").value+'").className = \'slider\';\r';
+				document.querySelectorAll('.generated2')[0].value += '    	  }\r';
+				document.querySelectorAll('.generated2')[0].value += '        document.getElementById("' + _("trigs").value + '").addEventListener("'+ ev + '",slider); //Event Listener for '+ ev +'\r';
+				document.querySelectorAll('.generated2')[0].value += '        function slider() {\r';
+				document.querySelectorAll('.generated2')[0].value += '            if (glob == 0) {\r';
+				document.querySelectorAll('.generated2')[0].value += '                document.querySelectorAll(".slider")[0].style.left = \'0px\';\r';
+				document.querySelectorAll('.generated2')[0].value += '                document.querySelectorAll(".slider")[0].style.opacity = \'1\';\r';
+				document.querySelectorAll('.generated2')[0].value += '                glob = 1;\r';
+				document.querySelectorAll('.generated2')[0].value += '            }\r';
+				document.querySelectorAll('.generated2')[0].value += '            else {\r';
+				document.querySelectorAll('.generated2')[0].value += '                document.querySelectorAll(".slider")[0].style.left = \'-320px\';\r';
+				document.querySelectorAll('.generated2')[0].value += '                document.querySelectorAll(".slider")[0].style.opacity = \'0\';\r';
+				document.querySelectorAll('.generated2')[0].value += '                glob = 0;\r';
+				document.querySelectorAll('.generated2')[0].value += '            }\r';
+				document.querySelectorAll('.generated2')[0].value += '        }\r';
+				document.querySelectorAll('.generated2')[0].value += '    <\/script>';
+			}
+			else if (x == 3) {
+				document.querySelectorAll('.generated2')[0].value += '    <script>\r';
+				document.querySelectorAll('.generated2')[0].value += '        document.getElementById("' + _("trigs").value + '").addEventListener("'+ ev + '",remElem); //Event Listener for '+ ev +'\r';
+				document.querySelectorAll('.generated2')[0].value += '        function remElem() {\r';
+				document.querySelectorAll('.generated2')[0].value += '            document.getElementById("' + _("adds").value + '").parentNode.removeChild(document.getElementById("' + _("adds").value + '"))\r';
+				document.querySelectorAll('.generated2')[0].value += '        }\r';
+				document.querySelectorAll('.generated2')[0].value += '    <\/script>';	
+			}
+			else if (x == 4) {
+				document.querySelectorAll('.generated2')[0].value += '    <!-- Uncomment this if the font awesome icon pack is included already \r';
+				document.querySelectorAll('.generated2')[0].value += '    <link rel="stylesheet" href="all.css">\r';
+				document.querySelectorAll('.generated2')[0].value += '    <script src="all.js"><\/script> -->\r';
+				document.querySelectorAll('.generated2')[0].value += '    <script>\r';
+				document.querySelectorAll('.generated2')[0].value += '        document.getElementById("' + _("trigs").value + '").addEventListener("'+ ev + '",spinElem); //Event Listener for '+ ev +'\r';
+				document.querySelectorAll('.generated2')[0].value += '        function spinElem() {\r';
+				document.querySelectorAll('.generated2')[0].value += '    	      _("'+ _("adds").value+'").className = \'fas fa-spin\';\r';
+				document.querySelectorAll('.generated2')[0].value += '        }\r';
+				document.querySelectorAll('.generated2')[0].value += '    <\/script>';
+			}
+		}
+		document.querySelectorAll('.save')[2].addEventListener('click',function() {
+			var seltxt = document.querySelectorAll(".generated")[0];
+			seltxt.select();
+			document.execCommand("copy");
+			alert("Copied to Clipboard");
+		});
+		document.querySelectorAll('.save')[3].addEventListener('click',function() {
+			var seltxt = document.querySelectorAll(".generated2")[0];
+			seltxt.select();
+			document.execCommand("copy");
+			alert("Copied to Clipboard");
+		});
+	</script>
+	<style>
+	    .bottom-panel {
+	    	background-color:#f2f2f2;
+	    	border-bottom-left-radius:10px;
+	    	border-bottom-right-radius:10px;
+	    }
+	    .top-panel {
+	    	background-color:#f2f2f2;
+	    	border-top-left-radius:10px;
+	    	border-top-right-radius:10px;
+	    }
+	    .top-panel3 {
+	    	background-color:#f2f2f2;
+	    }
+	    #down {
+	    	cursor:not-allowed;
+	    	transition:0.5s;
+	    	filter(opacity:60%);
+	    }
+		.pg {
+			width:55%;
+			margin-top:5vh;
+			border-radius:50px;
+			height:90vh;
+		}
+		.generated {
+			font-family:trebuchet MS;
+			text-shadow:lightgray 1px 1px;
+            background-color:rgb(250,250,250);
+			z-index:200000;
+			left:20vw;
+			border:0px;
+			top:5vh;
+			width:100%;
+			background-color:white;
+			height:100%;
+			resize:none;
+			padding:10px;
+			outline:none;
+		}
+		.pages {
+			position:absolute;
+			display:none;
+			top:0px;
+			left:0px;
+			width:100vw;
+			height:100vh;
+			overflow:auto;
+			background-color:rgba(0,0,0,0.9);
+			z-index:300000;
+		}
+		.bottom-panel2 {
+	    	background-color:#f2f2f2;
+	    	border-bottom-left-radius:10px;
+	    	border-bottom-right-radius:10px;
+	    }
+	    .top-panel2 {
+	    	background-color:#f2f2f2;
+	    	border-top-left-radius:10px;
+	    	border-top-right-radius:10px;
+	    }
+		.pg2 {
+			width:55%;
+			margin-top:5vh;
+			border-radius:50px;
+			height:120vh;
+		}
+		.generated2 {
+			font-family:;
+			text-shadow:lightgray 1px 1px;
+            background-color:rgb(250,250,250);
+			z-index:200000;
+			left:20vw;
+			top:5vh;
+			width:100%;
+			background-color:white;
+			height:100%;
+			resize:none;
+			padding:10px;
+			outline:none;
+			border:0px;
+		}
+		.pages2 {
+			position:absolute;
+			display:none;
+			top:0px;
+			left:0px;
+			width:100vw;
+			box-sizing:border-box;
+			padding-bottom:30px;
+			height:100vh;
+			overflow:auto;
+			background-color:rgba(0,0,0,0.9);
+			z-index:300000;
+		}
+		@media (max-width:900px) {
+			.pg {
+				width:90vw;
+			}
+			.pg2 {
+				width:90vw;
+			}
+		}
+	</style>
+	<script>
+		function scrpt() {
+			document.querySelectorAll(".pages2")[0].style.display = 'block';
+			var t1 = document.querySelectorAll(".widget");
+			_("trigs").innerHTML = '';
+			_("adds").innerHTML = '';
+			for (var o = 0; o < t1.length; o++){
+				_("trigs").innerHTML += '<option>'+t1[o].id+'</option>';
+				_("adds").innerHTML += '<option>'+t1[o].id+'</option>';
+			}
+		}
+		var ico = '';
+		function ic(x) {
+			ico = x;
+			_("stats").innerHTML = 'Successfully Added!';
+		}
+		function appl(x) {
+			var siz = _("size").value.toLowerCase();
+			var x = x.replace(/fa-2x/g,'fa-'+siz);
+			_(id).innerHTML = x;
+			_("overlap").style.display = 'none';
+		}
+		function generate() {
+			document.querySelectorAll('.pages')[0].style.display = 'block';
+			var wid = document.querySelectorAll('.widget');
+			document.querySelectorAll('.generated')[0].value = '<!DOCTYPE html>\n';
+			document.querySelectorAll('.generated')[0].value += '<html>\n';
+			document.querySelectorAll('.generated')[0].value += '<head>\n';
+			document.querySelectorAll('.generated')[0].value += '    <title>Enter Title Here</title>\n';
+			document.querySelectorAll('.generated')[0].value += '    <meta name="viewport" content="initial-scale=1.0,width=device-width">\n';
+			document.querySelectorAll('.generated')[0].value += '    <script src="all.js"><\/script>\n';
+			document.querySelectorAll('.generated')[0].value += '    <link rel="stylesheet" href="all.css">\n';
+			document.querySelectorAll('.generated')[0].value += '    <meta name="viewport" content="initial-scale=1.0,width=device-width">\n';
+			document.querySelectorAll('.generated')[0].value += '    <style>\n';
+			for (var i = 0;i < wid.length;i++) {
+				var width = ((wid[i].getBoundingClientRect().width/_("body").getBoundingClientRect().width) * 100) + '%';
+				var height = ((wid[i].getBoundingClientRect().height/_("body").getBoundingClientRect().height) * 100)+ '%';
+				var bordercolor = wid[i].style.borderColor;
+				var borderradius = wid[i].style.borderRadius;
+				var backgroundcolor = wid[i].style.backgroundColor;
+				var color = wid[i].style.color;
+				var ffamily = wid[i].style.fontFamily.replace(/"/g,'');
+				var fontfamily = ffamily;
+				var fontweight = wid[i].style.fontWeight;
+				var fontsize = wid[i].style.fontSize;
+				var boxshadow = wid[i].style.boxShadow;
+				var borderstyle = wid[i].style.borderStyle;
+				var zindex = wid[i].style.zIndex;
+				var textalign = wid[i].style.textAlign;
+				var padding = wid[i].style.padding;
+				var tx1 = wid[i].style.top.replace(/px/g,'');
+				var tx2 = parseFloat(tx1);
+				var ty1 = wid[i].style.left.replace(/px/g,'');
+				var ty2 = parseFloat(ty1);
+				var top = ((tx2 /_("body").getBoundingClientRect().height) * 100) + '%';
+				var left = ((ty2 /_("body").getBoundingClientRect().width) * 100) + '%';
+				var filter = wid[i].style.filter;
+				document.querySelectorAll(".generated")[0].value += '        #' + wid[i].id + ' {\n';
+				document.querySelectorAll(".generated")[0].value += '            height:'+height+';\n';
+				document.querySelectorAll(".generated")[0].value += '            width:'+width+';\n';
+				document.querySelectorAll(".generated")[0].value += '            border-color:'+bordercolor+';\n';
+				document.querySelectorAll(".generated")[0].value += '            border-radius:'+borderradius+';\n';
+				document.querySelectorAll(".generated")[0].value += '            background-color:'+backgroundcolor+';\n';
+				document.querySelectorAll(".generated")[0].value += '            color:'+color+';\n';
+				document.querySelectorAll(".generated")[0].value += '            text-align:'+textalign+';\n';
+				document.querySelectorAll(".generated")[0].value += '            font-family:'+fontfamily+';\n';
+				document.querySelectorAll(".generated")[0].value += '            font-weight:'+fontweight+';\n';
+				document.querySelectorAll(".generated")[0].value += '            font-size:'+fontsize+';\n';
+				document.querySelectorAll(".generated")[0].value += '            box-shadow:'+boxshadow+';\n';
+				document.querySelectorAll(".generated")[0].value += '            border-style:'+borderstyle+';\n';
+				document.querySelectorAll(".generated")[0].value += '            z-index:'+zindex+';\n';
+				document.querySelectorAll(".generated")[0].value += '            padding:'+padding+';\n';
+				document.querySelectorAll(".generated")[0].value += '            top:'+top+';\n';
+				document.querySelectorAll(".generated")[0].value += '            left:'+left+';\n';
+				document.querySelectorAll(".generated")[0].value += '            filter:'+filter+';\n';
+				document.querySelectorAll(".generated")[0].value += '            position:absolute\n';
+				document.querySelectorAll(".generated")[0].value += '        }\n';
+			}
+			document.querySelectorAll('.generated')[0].value += '    </style>\n';
+			document.querySelectorAll('.generated')[0].value += '</head>\n';
+			document.querySelectorAll('.generated')[0].value += '    <body style="overflow-x:hidden">\n';
+			var wdg = document.querySelectorAll('.widget');
+			for (var k = 0;k < wdg.length;k++) {
+				if (wdg[k].tagName.toLowerCase() == 'input') {
+					document.querySelectorAll('.generated')[0].value += '        <input type="'+ wdg[k].type.toLowerCase() +'" id="'+ wdg[k].id + '" value="'+ wdg[k].value +'">\n';
+				}
+				else if (wdg[k].tagName.toLowerCase() == 'img') {
+					document.querySelectorAll('.generated')[0].value += '        <'+wdg[k].tagName.toLowerCase()+' id="' + wdg[k].id+'" src="'+wdg[k].src+'">\n';
+				}
+				else {
+					document.querySelectorAll('.generated')[0].value += '        <'+ wdg[k].tagName.toLowerCase() +' id="'+ wdg[k].id +'">'+ wdg[k].innerHTML+'</'+ wdg[k].tagName.toLowerCase()+'>\n';
+				}
+			}
+			document.querySelectorAll('.generated')[0].value += '    </body>\n';
+			document.querySelectorAll('.generated')[0].value += '</html>';
+		}
+	</script>
+</body>
+<div style="width:100%;height:100%" id="loader">
+	<table style="width:100%;height:100%">
+		<tr>
+			<td>
+				<center><div id="box1" class="box"></div><div id="box2" class="box"></div><div id="box3" class="box"></div></center>
+		       <h1 style="font-family:'GothamRounded'"><center>ZuderCMS</center></h1>
+		    </td>
+		</tr>
+	</table>
+</div>
+<div id="error"></div>
+</html>
